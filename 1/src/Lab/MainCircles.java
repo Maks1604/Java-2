@@ -1,6 +1,8 @@
 package Lab;
+
 import javax.swing.*;
 import java.awt.*;
+
 
 /*
 	Полностью разобраться с кодом
@@ -11,12 +13,12 @@ import java.awt.*;
 * */
 
 public class MainCircles extends JFrame {
-
+    private MouseEvents mouseEvents;
     private static final int POS_X = 600;
     private static final int POS_Y = 200;
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 600;
-    private Sprite[] sprites = new Sprite[10];
+    public static Sprite[] sprites = new Sprite[10];
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -31,12 +33,15 @@ public class MainCircles extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBounds(POS_X, POS_Y, WINDOW_WIDTH, WINDOW_HEIGHT);
         setTitle("Circles");
-
+        mouseEvents = new MouseEvents();
+//        mouseEvents.setSprites(sprites);
+        addMouseListener(mouseEvents);
         GameCanvas gameCanvas = new GameCanvas(this);
         initApplication();
         add(gameCanvas, BorderLayout.CENTER);
         setVisible(true);
     }
+
 
     void initApplication() {
         for (int i = 0; i < sprites.length; i++) {
@@ -49,7 +54,7 @@ public class MainCircles extends JFrame {
         render(canvas, g);
     }
 
-    private void update(GameCanvas canvas, float deltaTime){
+    private void update(GameCanvas canvas, float deltaTime) {
         for (int i = 0; i < sprites.length; i++) {
             sprites[i].update(canvas, deltaTime);
         }
