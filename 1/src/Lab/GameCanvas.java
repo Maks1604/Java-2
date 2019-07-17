@@ -6,10 +6,11 @@ public class GameCanvas extends JPanel {
 
     MainCircles gameWindow;
     private long lastFrameTime;
+    private Background background;
 
     GameCanvas(MainCircles gameWindow) {
         this.gameWindow = gameWindow;
-        setBackground(Color.BLUE);
+       background = new Background(Color.BLUE, this);
         lastFrameTime = System.nanoTime();
     }
 
@@ -25,6 +26,7 @@ public class GameCanvas extends JPanel {
             throw new RuntimeException(e);
         }
         gameWindow.onDrawFrame(this, g, delta);
+        background.ubdate(delta);
         repaint();
     }
 
