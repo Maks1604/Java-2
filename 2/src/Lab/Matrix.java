@@ -8,17 +8,26 @@ public class Matrix {
 
     Matrix(String str, int rank) {
         this.rank = rank;
-        converToArray(str, rank);
+        try {
+            converToArray(str, rank);
+        } catch (MatrixSizeException e) {
+            e.printStackTrace();
+        }
+        catch (MatrixElementException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void converToArray(String srt, int count) {
-
+    private void converToArray(String srt, int count) throws MatrixSizeException,MatrixElementException {
+        if (count!=4){
+           throw new MatrixSizeException("Проверьте размер матрицы");
+        }
         srt = srt.replaceAll("\\s+", "");
         array = new String[count][count];
         for (int i = 0; i < count; i++) {
             for (int j = 0; j < count; j++) {
-                if (srt.charAt(i * count + j) < '0' && srt.charAt(i * count + j) > '9') {
-
+                if (srt.charAt(i * count + j) < '0' || srt.charAt(i * count + j) > '9') {
+                    throw new MatrixElementException("Элемент матрицы не число");
                 }
                 array[i][j] = String.valueOf(srt.charAt(i * count + j));
             }
@@ -42,6 +51,6 @@ public float Calc(){
         sum+= Integer.parseInt(array[i][j]);
         }
     }
-    return sum/2;
+    return sum/2.0f;
 }
 }
