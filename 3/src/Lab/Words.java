@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class Words {
     private String[] words;
+
     Words(String[] words){
        this.words=words;
     }
